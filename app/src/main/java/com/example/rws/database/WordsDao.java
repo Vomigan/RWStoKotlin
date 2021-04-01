@@ -2,6 +2,7 @@ package com.example.rws.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface WordsDao {
     @Query("SELECT * FROM words")
     List<Words> getAllWords();
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertWords(Words... words);
 
 

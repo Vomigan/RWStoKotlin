@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.rws.database.Words;
 import com.example.rws.database.WordsDatabase;
 import com.example.rws.database.WordsListAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.floatingActionButton);
+        FloatingActionButton button = findViewById(R.id.floatingActionButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
