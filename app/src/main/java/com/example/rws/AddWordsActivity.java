@@ -18,6 +18,7 @@ public class AddWordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_words);
         EditText word = findViewById(R.id.editTextTextPersonName);
         Button button = findViewById(R.id.button);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

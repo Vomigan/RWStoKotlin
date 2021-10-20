@@ -20,10 +20,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private WordsListAdapter wordsListAdapter;
+    static WordsDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initRecyclerView();
+        loadWordsList();
+
         FloatingActionButton button = findViewById(R.id.floatingActionButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,15 +38,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        initRecyclerView();
-        loadWordsList();
     }
     private void initRecyclerView(){
-        RecyclerView recyclerView =findViewById(R.id.RV);
+        RecyclerView recyclerView = findViewById(R.id.RV);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-        wordsListAdapter = new WordsListAdapter(this);
+
+        db = WordsDatabase.getDbInstance(getApplicationContext());
+        List<Words> wordsList = db.wordsDao().getAllWords();
+        wordsListAdapter = new WordsListAdapter(wordsList);
         recyclerView.setAdapter(wordsListAdapter);
     }
     private void loadWordsList(){
@@ -54,5 +61,11 @@ public class MainActivity extends AppCompatActivity {
             loadWordsList();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadWordsList();
     }
 }

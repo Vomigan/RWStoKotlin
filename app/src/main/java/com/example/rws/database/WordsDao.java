@@ -9,10 +9,8 @@ import java.util.List;
 
 @Dao
 public interface WordsDao {
-    @Query("SELECT * FROM words")
+    @Query("SELECT * FROM Words")
     List<Words> getAllWords();
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertWords(Words... words);
-
-
+    void insertWords(Words words);
 }
