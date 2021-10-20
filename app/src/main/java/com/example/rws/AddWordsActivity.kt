@@ -1,37 +1,27 @@
-package com.example.rws;
+package com.example.rws
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import com.example.rws.R
+import android.widget.EditText
+import com.example.rws.database.Words
+import com.example.rws.database.WordsDatabase
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import com.example.rws.database.Words;
-import com.example.rws.database.WordsDatabase;
-
-public class AddWordsActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_words);
-        EditText word = findViewById(R.id.editTextTextPersonName);
-        Button button = findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNewWord(word.getText().toString());
-            }
-        });
+class AddWordsActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_words)
+        val word = findViewById<EditText>(R.id.editTextTextPersonName)
+        val button = findViewById<Button>(R.id.button)
+        button.setOnClickListener { addNewWord(word.text.toString()) }
     }
-    private void addNewWord(String word){
-        WordsDatabase db = WordsDatabase.getDbInstance(this.getApplicationContext());
-        Words words = new Words();
-        words.word = word;
 
-        db.wordsDao().insertWords(words);
-        finish();
+    private fun addNewWord(word: String) {
+        val db = WordsDatabase.getDbInstance(this.applicationContext)
+        val words = Words()
+        words.word = word
+        db.wordsDao().insertWords(words)
+        finish()
     }
 }
